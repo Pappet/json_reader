@@ -1,0 +1,57 @@
+[
+	{
+		"name": "Brennan Ramsey",
+		"phone": "1-773-114-9497",
+		"email": "mi.lorem@icloud.ca",
+		"address": "302-4186 Ac St.",
+		"postalZip": "25762",
+		"alphanumeric": "AQM54XAJ7GC"
+	},
+	{
+		"name": "Ruth Guy",
+		"phone": "(447) 545-3837",
+		"email": "tempus.eu@hotmail.couk",
+		"address": "580-8397 Cras Rd.",
+		"postalZip": "85325",
+		"alphanumeric": "VJL12LJV3DI"
+	},
+	{
+		"name": "Rhona Decker",
+		"phone": "(866) 549-2503",
+		"email": "mollis.dui.in@protonmail.ca",
+		"address": "199-7868 Mollis. Av.",
+		"postalZip": "46226",
+		"alphanumeric": "HOX47AWC7VT"
+	},
+	{
+		"name": "Giacomo Nielsen",
+		"phone": "(689) 673-1617",
+		"email": "libero.proin@outlook.org",
+		"address": "P.O. Box 611, 3149 In, Street",
+		"postalZip": "Q3T 2G6",
+		"alphanumeric": "CHE46YKQ5FK"
+	},
+	{
+		"name": "Stella Contreras",
+		"phone": "(737) 649-4353",
+		"email": "fringilla.ornare.placerat@icloud.net",
+		"address": "P.O. Box 410, 6856 Ultricies Av.",
+		"postalZip": "538427",
+		"alphanumeric": "PLO56FXC4RO"
+	},
+	{
+	  "name": "John",
+	  "age": 30,
+	  "married": true,
+	  "divorced": false,
+	  "children": [
+		  "Ann",
+		  "Billy"
+	  ],
+	  "pets": null,
+	  "cars": [
+		{"model": "BMW 230", "mpg": 27.5},
+		{"model": "Ford Edge", "mpg": 24.1}
+	  ]
+	}
+]
