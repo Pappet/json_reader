@@ -125,7 +125,7 @@ if __name__ == '__main__':
             unique_key_paths = list(set(formatted_key_paths))
 
             values = extract_values(loaded_json)
-
+            # Write the Files
             write_txt(txt_path, unique_key_paths)
 
 
