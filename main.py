@@ -1,12 +1,30 @@
 import json
+import os
 
 
 def read_json(file_path):
-    # JSON von einer Datei laden
-    with open(file_path, "r", encoding="utf-8") as json_file:
-        data = json.load(json_file)
-        return data
+    try:
+        # JSON von einer Datei laden
+        with open(file_path, "r", encoding="utf-8") as json_file:
+            data = json.load(json_file)
+            return data
+    except json.JSONDecodeError as e:
+        print(f'Fehler beim Laden der JSON-Datei "{file_path}": {e}')
+        return None
 
+
+def write_txt(file_path, stuff):
+    stuff.sort()
+    list_to_print = manipulate_list(stuff)
+    # JSON in eine Datei schreiben
+    with open(file_path, "w", encoding="utf-8") as txt_file:
+        txt_file.write(list_to_print)
+
+
+def manipulate_list(list):
+    # Zeilenumbruch zwischen Listeneinträgen einfügen
+    content = '\n'.join(list)
+    return content
 
 def find_depth(obj, current_depth=1):
     if isinstance(obj, dict):
@@ -75,20 +93,39 @@ def extract_key_paths(obj, current_path=None, paths=None):
 
 
 if __name__ == '__main__':
-    path = "test.json"
+    folder_path = '/home/peter/Schreibtisch/JSONS'
+    output_folder_name = 'output'
+    # Erstelle den Pfad für den Ausgabeordner
+    output_folder_path = os.path.join(folder_path, output_folder_name)
+    # Erstelle den Ausgabeordner, falls er noch nicht existiert
+    if not os.path.exists(output_folder_path):
+        os.makedirs(output_folder_path)
+    # Liste der Dateien im Ordner
+    file_list = os.listdir(folder_path)
+    # Durch die Dateien im Ordner iterieren
+    for filename in file_list:
+        # Dateipfad erstellen
+        file_path = os.path.join(folder_path, filename)
+        # Prüfen, ob der Pfad eine Datei ist
+        if os.path.isfile(file_path):
+            # Erstelle den Ausgabepfad im Ausgabeordner
+            filename_without_extension, _ = os.path.splitext(filename)
+            txt_filename = f"{filename_without_extension}.txt"
+            txt_path = os.path.join(output_folder_path, txt_filename)
 
-    loaded_json = read_json(path)
-    print(find_depth(loaded_json))
-    print()
-    keys = extract_keys(loaded_json)
-    print(keys)
-    print()
-    key_paths = extract_key_paths(loaded_json)
-    formatted_key_paths = ['.'.join(path) for path in key_paths]
-    unique_key_paths = list(set(formatted_key_paths))
-    print(unique_key_paths)
-    print()
-    values = extract_values(loaded_json)
-    print(values)
+            loaded_json = read_json(file_path)
+            if loaded_json is None:
+                # JSON konnte nicht geladen werden, überspringen
+                continue
+
+            keys = extract_keys(loaded_json)
+
+            key_paths = extract_key_paths(loaded_json)
+            formatted_key_paths = ['.'.join(path) for path in key_paths]
+            unique_key_paths = list(set(formatted_key_paths))
+
+            values = extract_values(loaded_json)
+
+            write_txt(txt_path, unique_key_paths)
 
 
