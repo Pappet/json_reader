@@ -95,15 +95,19 @@ def extract_key_paths(obj, current_path=None, paths=None):
 if __name__ == '__main__':
     folder_path = '/home/peter/Schreibtisch/JSONS'
     output_folder_name = 'output'
+
     # Erstelle den Pfad für den Ausgabeordner
     output_folder_path = os.path.join(folder_path, output_folder_name)
     # Erstelle den Ausgabeordner, falls er noch nicht existiert
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
+
     # Liste der Dateien im Ordner
     file_list = os.listdir(folder_path)
+    # Kombinierte Daten speichern
+    combined_data = []
     # Durch die Dateien im Ordner iterieren
-    for filename in file_list:
+    for index, filename in enumerate(file_list):
         # Dateipfad erstellen
         file_path = os.path.join(folder_path, filename)
         # Prüfen, ob der Pfad eine Datei ist
@@ -128,4 +132,18 @@ if __name__ == '__main__':
             # Write the Files
             write_txt(txt_path, unique_key_paths)
 
+            if index == 0:
+                combined_data = key_paths
+            else:
+                # Vergleiche die Werte für jeden Index in der Liste und speichere den maximalen Wert
+                for key in key_paths:
+                    combined_data.append(key)
 
+            formatted_combined_data = [' -> '.join(path) for path in combined_data]
+            unique_combined_data = list(set(formatted_combined_data))
+
+            # Speichere die kombinierten Daten in einer neuen Datei
+            combined_data_filename = "combined_data.txt"
+            combined_data_path = os.path.join(output_folder_path, combined_data_filename)
+
+            write_txt(combined_data_path, unique_combined_data)
