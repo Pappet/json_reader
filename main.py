@@ -1,7 +1,11 @@
+#!/usr/bin/env python3
+
 import json
 import os
 import csv
 import time
+import sys
+
 
 def read_json(file_path):
     try:
@@ -26,6 +30,7 @@ def manipulate_list(list):
     # Zeilenumbruch zwischen Listeneinträgen einfügen
     content = '\n'.join(list)
     return content
+
 
 def find_depth(obj, current_depth=1):
     if isinstance(obj, dict):
@@ -108,6 +113,7 @@ def find_list_keys(data, path=''):
 
 
 def folder_json(data_list, data_list_combined):
+    folder_path = '/home/XXX/JSONS'
     # Liste der Dateien im Ordner
     file_list = os.listdir(folder_path)
     # Durch die Dateien im Ordner iterieren
@@ -166,8 +172,7 @@ def folder_json(data_list, data_list_combined):
             write_txt(list_keys_path, unique_combined_list_keys)
 
 
-def csv_json(data_list, data_list_combined):
-    csv_file_path = '/home/peter/Schreibtisch/JSONS/XXX.csv'
+def csv_json(data_list, data_list_combined, csv_file_path):
     previous_list_keys = set()
     previous_combined_set = set()
 
@@ -214,11 +219,18 @@ def csv_json(data_list, data_list_combined):
 
 if __name__ == '__main__':
     start_time = time.time()
-    folder_path = '/home/XXX/JSONS'
 
-    output_folder_name = 'output2'
+    if len(sys.argv) > 2:
+        input_file_string = sys.argv[1]
+        output_folder_name = sys.argv[2]
+    else:
+        print("Please input the path of a csv file and the name of the output folder.")
+        sys.exit(1)
+
+    input_file_path, input_file_name = os.path.split(input_file_string)
+
     # Erstelle den Pfad für den Ausgabeordner
-    output_folder_path = os.path.join(folder_path, output_folder_name)
+    output_folder_path = os.path.join(input_file_path, output_folder_name)
     # Erstelle den Ausgabeordner, falls er noch nicht existiert
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
@@ -226,7 +238,7 @@ if __name__ == '__main__':
     combined_data = []
     combined_list_keys = []
 
-    csv_json(combined_data, combined_list_keys)
+    csv_json(combined_data, combined_list_keys, input_file_string)
     # folder_json(combined_data, combined_list_keys)
 
     end_time = time.time()
