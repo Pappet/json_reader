@@ -2,7 +2,7 @@
 
 ## Description
 json_reader is a Python utility that allows you to read and analyze JSON files. It's particularly helpful for data analysis and for situations where you need to write SQL queries based on the data contained in JSON files.
-The tool works by taking a CSV file as input, where each row should contain a JSON object. The processed data is then output to a designated folder. The CSV should contain a json in each row.
+The tool works by taking a CSV file as input, where each row should contain a JSON object. The processed data is then output to a designated folder.
 
 ## Installation
 To install json_reader, you'll need to run the provided shell script. You can do this by navigating to the directory containing the script and running the following commands:
